@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Animanage" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header class="bg-blue-600 text-white shadow-md">
+      <div class="container mx-auto py-3 flex justify-between items-center">
+        <a href="/" class="text-lg font-semibold">Animanage</a>
+
+        <nav class="flex space-x-4">
+          <%= link_to "アニメ一覧", root_path, class: "hover:text-gray-200" %>
+
+          <% if user_signed_in? %>
+            <%= link_to "新規投稿", new_anime_path, class: "hover:text-gray-200" %>
+            <%= button_to "ログアウト", destroy_user_session_path, class: "hover:text-gray-200", method: :delete %>
+          <% else %>
+            <%= link_to "ユーザー登録", new_user_registration_path, class: "hover:text-gray-200" %>            
+            <%= link_to "ログイン", new_user_session_path, class: "block py-2 pr-4 pl-3 text-gray-400 hover:text-white border-b border-gray-700 hover:bg-gray-700 md:hover:bg-transparent md:border-0 md:hover:text-blue-white md:p-0" %>
+          <% end %>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container mx-auto mt-28 px-5 flex flex-col justify-center items-center">
+      <% if flash[:notice] %>
+        <div class="alert alert-info p-4 mt-3 mb-4 mx-3 bg-blue-100 rounded-lg">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="alert alert-danger p-4 mt-3 mb-4 mx-3 bg-red-100 rounded-lg">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+<div class="max-w-4xl w-3/4 mx-auto p-6">
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4"><%= @anime.title %></h1>
+    <p class="text-gray-600 text-lg mb-6"><%= @anime.comment %></p>
+
+    <% if @anime.user == current_user %>
+        <div class="flex justify-between items-center">
+            <%= link_to "編集", edit_anime_path(@anime), class: "inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition" %>
+            <%= button_to "削除", anime_path(@anime), method: :delete, class: "bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition" %>
+        </div>
+    <% end %>
+  </div>
+</div>

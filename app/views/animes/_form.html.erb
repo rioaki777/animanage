@@ -1,0 +1,22 @@
+<div class="w-1/2 mx-auto mt-8 p-5 bg-white rounded-2xl shadow-2xl">
+  <h1 class="text-3xl font-bold mb-4"><%= title %></h1>
+
+  <%= form_with model: anime, class: "space-y-6" do |form| %>
+    <div class="mt-5 mb-5 text-red-800">
+      <%= render 'devise/shared/error_messages', resource: anime %>
+    </div>
+
+    <div>
+      <%= render(CommonFormFieldComponent.new(form: form, field_name: :title, field_type: :text_field)) %>
+    </div>
+
+    <div>
+      <%= form.label :comment, "本文", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_area :comment, rows: 5, class: "px-4 py-2 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:outline-none" %>
+    </div>
+
+    <div class="flex justify-end">
+      <%= form.submit submit_text, class: "w-full py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
+  <% end %>
+</div>
